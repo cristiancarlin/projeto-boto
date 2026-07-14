@@ -1,3 +1,1 @@
-# MEU TCC
-
-Diga olá ao meu TCC!
+# Diga olá ao meu TCC!
