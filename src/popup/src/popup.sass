@@ -1,0 +1,285 @@
+// https://bold.bridge.ufsc.br/en/design-guidelines/color
+$color_primary:         #C8206F // pink c40
+$color_secondary:       #02786D // turquoise c40
+
+$font_display:  'Oxygen', sans-seri
+$font_body:     'IBM Plex Sans', sans-serif
+
+body
+    font-family: $font_body
+    margin: 0
+    *
+        box-sizing: border-box
+
+.material-icons
+    font-size: 1.5rem
+
+main
+    width: 300px
+    padding: 0.7rem
+    display: flex
+    flex-direction: column
+    align-items: center
+
+    .header
+        text-align: center
+        margin: 0 0 12px 0
+        &_greetings
+            margin: 0px
+            font-family: $font_display
+            font-size: 1.5rem
+            color: $color_primary
+            a
+                font-family: $font_display
+                font-size: 1.5rem
+        &_settings-icon
+            color: $color_primary
+            position: absolute
+            top: 8px
+            right: 8px
+
+    .tabs
+        width: 100%
+        margin-bottom: 10px
+        ul[role='tablist']
+            justify-content: center
+
+    .body
+        width: 100%
+        flex-grow: 1
+        height: 380px
+        display: flex
+        flex-direction: column
+        &-interface, &-extension
+            .options_item
+                display: flex
+                flex-direction: column
+                align-items: center
+                margin: 5px 0
+                &_title
+                    width: 100%
+                    display: flex
+                    justify-content: space-between
+                    &-name
+                        font-weight: bold
+                &_value
+                    display: flex
+                    flex-direction: column
+                    align-items: center
+                    justify-content: stretch
+                    width: 100%
+                    margin: 2px
+                    &-slider > input[type='range'], > div
+                        flex-grow: 1
+                        align-self: stretch
+                    &-slider
+                        align-self: stretch
+                        display: flex
+                        justify-content: space-between
+                        align-items: center
+                        > input[type='range']
+                            margin: auto
+                            -webkit-appearance: none
+                            position: relative
+                            overflow: hidden
+                            height: 32px
+                            cursor: pointer
+                            margin: 0 6px
+                            border-radius: 4px
+                            border: 1px solid #696979
+                            transition: all .2s
+                            &::-webkit-slider-runnable-track 
+                                background: #F0F0F5
+                            &::-webkit-slider-thumb
+                                -webkit-appearance: none
+                                width: 20px
+                                height: 32px
+                                background: #fff
+                                box-shadow: -100vw 0 0 100vw $color_primary
+                                border: 1px solid #696979
+                                border-width: 0 1px
+                            &:focus                        
+                                outline: none
+                                box-shadow: 0 0 0 2px #F0F0F5, 0 0 0 4px #C8206F
+                    &-description
+                        position: absolute
+                        margin-top: -18px
+                    &-custom
+                        display: flex
+                        justify-content: space-between
+                        align-items: center
+        &-extension
+            button
+                margin: 15px 0
+
+    .footer
+        width: 100%
+        margin-top: 12px
+        label
+            span
+                font-weight: 700
+        &_logo
+            font-family: $font_display
+            color: $color_primary
+            font-size: 1.3rem
+            text-decoration: none
+            position: relative
+            img
+                width: 12px
+                height: 12px
+                position: absolute
+                top: -2px
+                right: -7px
+        &_links
+            a:not(:last-of-type)
+                margin-right: 6px
+
+.user-form
+    text-align: left
+    &.user-form-profile
+        width: 100%
+        > div
+            width: 100%
+            margin-bottom: 6px
+    &_welcome
+        margin: 10px 0
+        &-title
+            text-align: center
+            color: $color_primary
+            font: $font_display
+            margin-bottom: 12px
+        &-buttons
+            margin-top: 18px
+            width: 100%
+            display: flex
+            justify-content: center
+            button
+                margin: 0 6px
+                width: inherit
+    &_field
+        height: 180px
+        margin: 22px 0
+        width: 100%
+        &-tip
+            display: block
+            margin-top: 15px
+    &_stepper
+        width: 100%
+        > div
+            margin: 0 -12px
+    &_footer
+        margin-top: 10px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        button
+            width: 100px
+
+
+.voice-control
+    display: flex
+    flex-direction: column
+    margin-top: 5px
+    width: 100%
+    border: solid 1px $color_primary
+    &:hover
+        opacity: 0.8
+    p
+        font-weight: bold
+        cursor: pointer
+
+.voice-control-expanded
+    border: solid 1px $color_primary
+    display: flex
+    flex-direction: column
+    width: 100%
+    margin-top: 5px
+    height: 170px
+
+.expand
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    p
+        margin: 5px 10px
+        font-size: 16px
+        color: $color_primary
+        font-weight: bold
+        cursor: pointer
+        &:hover
+            opacity: 0.8
+    img
+        width: 15px
+        height: 15px
+        color: $color_primary
+
+.voice-control-buttons
+    display: flex
+    justify-content: center
+    padding: 5px
+    button
+        width: 70px
+        border: none
+        color: #ffffff
+        background-color: $color_primary
+        height: 28px
+        margin: 0 10px
+        border-radius: 5px
+        &:hover
+            cursor: pointer
+            opacity: 0.7
+            
+
+.voice-control-interaction
+    margin: 10px auto
+    padding: 0 15px
+    text-align: center
+    p
+        font-size: 16px
+        b
+            color: $color_primary 
+
+.command-title
+    font-weight: bold
+
+.voice-instructions
+    display: flex
+    flex-direction: column
+    padding: 5px
+    text-align: center
+    background-color: #F8F8FF
+    border-radius: 10px
+    margin-top: 25px
+
+.voice-instructions-tip
+    margin: 5px 0
+    font-weight: 500
+    b
+        color: $color_primary 
+
+.voice-instructions-description
+    font-size: 12px
+    color: #aaaaaa
+
+.alert 
+  position: fixed
+  bottom: 60px
+  display: none
+  width: 85%
+  height: 150px
+  background-color: rgba(217, 70, 70, 0.9)
+  z-index: 2
+  
+.alert-text
+  position: absolute
+  top: 50%
+  left: 50%
+  font-size: 16px
+  color: white
+  transform: translate(-50%,-50%)
+  -ms-transform: translate(-50%,-50%)
+  justify-items: center
+  b
+    font-size: 20px
