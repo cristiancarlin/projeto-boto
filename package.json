@@ -8,8 +8,7 @@
         "prewatch": "npm run clean",
         "watch": "npm-run-all watch:*",
         "build": "npm-run-all build:*",
-        "build:contentscript-background": "webpack --node-env production --config webpack.config.js",
-        "watch:contentscript-background": "webpack --node-env development --config webpack.config.js -w",
+        "build:contentscript-background": "webpack --mode production --config webpack.config.js",
         "watch:popup": "npm run watch:build --prefix src/popup",
         "build:popup": "npm run build --prefix src/popup && cd src/popup/build && cpy * /static/* ../../../dist/popup --parents"
     },
