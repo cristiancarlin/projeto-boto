@@ -212,6 +212,7 @@ function Popup() {
   // When initializing, load all data
   useEffect(() => {
     requestAllDataMessage((response) => {
+      if (!response) return;
       settingsDataToState(response.settingsData);
       extensionDataToState(response.extensionData);
       setUserData(response.userData);

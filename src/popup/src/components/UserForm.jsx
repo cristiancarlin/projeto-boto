@@ -236,7 +236,7 @@ const UserForm = ({ userData, setUserData, setFormActive, profileForm, isVoiceCo
         )}
       </main>
     )) || (
-      <main className="user-form user-form-profile">
+      <div className="user-form user-form-profile">
         <TextField
           label="Nome"
           placeholder={isVoiceControlActive ? 'Fale "nome" + seu nome' : 'Digite o seu nome'}
@@ -299,7 +299,7 @@ const UserForm = ({ userData, setUserData, setFormActive, profileForm, isVoiceCo
           clearable={false}
           name="handedness"
         />
-      </main>
+      </div>
     )
   );
 };

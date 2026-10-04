@@ -244,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Get updated settingsData
   sendMessageToBackground(constants.commSubjects.REQUEST.ALL_DATA, null, (response) => {
+    if (!response) return;
     settingsDataUpdate(response.settingsData);
     extensionDataUpdate(response.extensionData);
   });
