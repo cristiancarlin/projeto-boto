@@ -148,6 +148,7 @@ function Popup() {
   const [colorLegendValue, setColorLegendValue] = useState(false);
   const [autoClickOnHoverValue, setAutoClickOnHoverValue] = useState(false);
   const [turnExtensionBiggerValue, setTurnExtensionBiggerValue] = useState(false);
+  const [readingMaskValue, setReadingMaskValue] = useState(false);
 
   const settingsDataToState = (settingsData) => {
     if (settingsData) {
@@ -163,6 +164,7 @@ function Popup() {
         setColorLegendValue(settingsData.options.colorLegend);
         setAutoClickOnHoverValue(settingsData.options.autoClickOnHover);
         setTurnExtensionBiggerValue(settingsData.options.turnExtensionBigger);
+        setReadingMaskValue(!!settingsData.options.readingMask);
       }
       setPopupUpdating(false);
     }
@@ -179,7 +181,8 @@ function Popup() {
         daltonism: daltonismValue,
         colorLegend: colorLegendValue,
         autoClickOnHover: autoClickOnHoverValue,
-        turnExtensionBigger: turnExtensionBiggerValue
+        turnExtensionBigger: turnExtensionBiggerValue,
+        readingMask: readingMaskValue
       }
     };
   };
@@ -233,7 +236,8 @@ function Popup() {
     daltonismValue,
     colorLegendValue,
     autoClickOnHoverValue,
-    turnExtensionBiggerValue
+    turnExtensionBiggerValue,
+    readingMaskValue
   ]);
 
   useEffect(() => {
@@ -247,7 +251,8 @@ function Popup() {
     noiseValue,
     daltonismValue,
     autoClickOnHoverValue,
-    turnExtensionBiggerValue
+    turnExtensionBiggerValue,
+    readingMaskValue
   ]);
 
   useEffect(() => {
@@ -477,6 +482,19 @@ function Popup() {
               </OptionsItem>
               <OptionsItem
                 type={constants.optionsItemTypes.CUSTOM2}
+                tooltip="Escurece o restante da página e deixa uma faixa clara que acompanha o cursor, destacando a linha de leitura">
+                <Checkbox
+                  label={
+                    <p>
+                      Ativar <b>máscara de leitura</b> que segue o cursor
+                    </p>
+                  }
+                  checked={readingMaskValue}
+                  onChange={(e) => setReadingMaskValue(e.target.checked)}
+                />
+              </OptionsItem>
+              <OptionsItem
+                type={constants.optionsItemTypes.CUSTOM2}
                 tooltip="Apresenta uma caixa ao lado do cursor do mouse, mostrando o valor em rgb das cores do texto">
                 <Checkbox
                   label="Legenda de cores"
@@ -522,6 +540,7 @@ function Popup() {
               setAutoClickOnHoverValue={setAutoClickOnHoverValue}
               setTurnExtensionBiggerValue={setTurnExtensionBiggerValue}
               setAcceptCookiesValue={setAcceptCookiesValue}
+              setReadingMaskValue={setReadingMaskValue}
               setUserData={setUserData}
               userData={userData}
               setIsVoiceControlActive={setIsVoiceControlActive}

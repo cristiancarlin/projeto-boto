@@ -140,6 +140,8 @@ export const VoiceControl = (props) => {
       props.setTurnExtensionBiggerValue(false);
     if (voiceType === 'marcar' && voiceElement === 'quarta') props.setAcceptCookiesValue(true);
     if (voiceType === 'desmarcar' && voiceElement === 'quarta') props.setAcceptCookiesValue(false);
+    if (voiceType === 'marcar' && voiceElement === 'máscara') props.setReadingMaskValue(true);
+    if (voiceType === 'desmarcar' && voiceElement === 'máscara') props.setReadingMaskValue(false);
     if (voiceType === 'restaurar' && voiceElement === 'configurações')
       props.resetDefaultSettingsProfile();
 

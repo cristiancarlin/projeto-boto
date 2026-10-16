@@ -75,7 +75,8 @@ export const defaultSettingsData = {
     noise: [],
     daltonism: daltonismTypes.NO,
     autoClickOnHover: false,
-    turnExtensionBigger: false
+    turnExtensionBigger: false,
+    readingMask: false
   }
 };
 export const defaultExtensionData = {
@@ -94,7 +95,8 @@ export const disabledSettingsData = {
     noise: [],
     daltonism: daltonismTypes.NO,
     autoClickOnHover: false,
-    turnExtensionBigger: false
+    turnExtensionBigger: false,
+    readingMask: false
   }
 };
 export const disabledExtensionData = {

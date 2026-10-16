@@ -20,6 +20,10 @@
 dist
 src/popup/build
 
+# Documentação local do TCC (não versionar)
+*.md
+!README.md
+
 # misc
 .DS_Store
 .env.local

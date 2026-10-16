@@ -1,4 +1,5 @@
 import RemoveCookieBanners from './functions/cookiebanner-go-away';
+import { enableReadingMask, disableReadingMask } from './functions/reading-mask';
 import * as constants from '../shared/constants';
 import { sendMessageToBackground } from './utils/messageManager';
 import {
@@ -172,6 +173,12 @@ function settingsDataUpdate(newSettingsData) {
   ) {
     document.removeEventListener('mousemove', autoClickOnHoverEvent);
     document.removeEventListener('wheel', autoClickOnHoverEvent);
+  }
+
+  if (newSettingsData.options.readingMask && !prevSettingsData.options.readingMask) {
+    enableReadingMask();
+  } else if (!newSettingsData.options.readingMask && prevSettingsData.options.readingMask) {
+    disableReadingMask();
   }
 
   prevSettingsData = newSettingsData;
