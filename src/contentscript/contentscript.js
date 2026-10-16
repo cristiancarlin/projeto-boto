@@ -1,5 +1,6 @@
 import RemoveCookieBanners from './functions/cookiebanner-go-away';
 import { enableReadingMask, disableReadingMask } from './functions/reading-mask';
+import { enableMutePauseMedia, disableMutePauseMedia } from './functions/mute-pause-media';
 import * as constants from '../shared/constants';
 import { sendMessageToBackground } from './utils/messageManager';
 import {
@@ -20,6 +21,14 @@ import {
   zoomRule,
   contrastBrightnessRule
 } from './utils/cssRules';
+
+function isTopFrame() {
+  try {
+    return window.top === window;
+  } catch (error) {
+    return false;
+  }
+}
 
 console.log('contentscript: loaded');
 
@@ -181,29 +190,40 @@ function settingsDataUpdate(newSettingsData) {
     disableReadingMask();
   }
 
+  if (newSettingsData.options.mutePauseMedia && !prevSettingsData.options.mutePauseMedia) {
+    enableMutePauseMedia();
+  } else if (!newSettingsData.options.mutePauseMedia && prevSettingsData.options.mutePauseMedia) {
+    disableMutePauseMedia();
+  }
+
   prevSettingsData = newSettingsData;
 }
 // Update DOM based on extensionData argument
 function extensionDataUpdate(newExtensionData) {
-  // Checks the DOM for W3C bad contrast ratios and fixes them
-  if (
-    newExtensionData.autoFixElements &&
-    (!prevExtensionData || !prevExtensionData.autoFixElements)
-  )
-    fixedElements = domContrastFix();
-  else if (
-    !newExtensionData.autoFixElements &&
-    (!prevExtensionData || prevExtensionData.autoFixElements)
-  ) {
-    fixedElements.forEach(
-      (fixedElement) => (fixedElement.elem.style.color = fixedElement.originalColor)
-    );
-    fixedElements = [];
-  }
+  // Operações pesadas só na página principal.
+  // Em sites como o G1, dezenas de iframes de anúncio carregam o content script
+  // (all_frames). Rodar domContrastFix em cada um travava/piscava a tela até o
+  // modal de "bloqueador" aparecer e parar novos iframes.
+  if (isTopFrame()) {
+    if (
+      newExtensionData.autoFixElements &&
+      (!prevExtensionData || !prevExtensionData.autoFixElements)
+    ) {
+      fixedElements = domContrastFix();
+    } else if (
+      !newExtensionData.autoFixElements &&
+      (!prevExtensionData || prevExtensionData.autoFixElements)
+    ) {
+      fixedElements.forEach(
+        (fixedElement) => (fixedElement.elem.style.color = fixedElement.originalColor)
+      );
+      fixedElements = [];
+    }
 
-  // Automatically accepts and closes all "accept cookies" modals
-  if (newExtensionData.acceptCookies && (!prevExtensionData || !prevExtensionData.acceptCookies))
-    RemoveCookieBanners();
+    if (newExtensionData.acceptCookies && (!prevExtensionData || !prevExtensionData.acceptCookies)) {
+      RemoveCookieBanners();
+    }
+  }
 
   prevExtensionData = newExtensionData;
 }
@@ -255,4 +275,16 @@ document.addEventListener('DOMContentLoaded', () => {
     settingsDataUpdate(response.settingsData);
     extensionDataUpdate(response.extensionData);
   });
+});
+
+// Garante que iframes também recebam mudanças feitas no popup
+// (chrome.tabs.sendMessage só entrega no frame principal por padrão)
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName !== 'local') return;
+  if (changes.settingsData && changes.settingsData.newValue) {
+    settingsDataUpdate(changes.settingsData.newValue);
+  }
+  if (changes.extensionData && changes.extensionData.newValue) {
+    extensionDataUpdate(changes.extensionData.newValue);
+  }
 });

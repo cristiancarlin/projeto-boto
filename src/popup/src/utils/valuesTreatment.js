@@ -55,6 +55,15 @@ export const valuesTreatment = (string) => {
   if (command.includes('aumentar tamanho')) element = 'terceira';
   if (command.includes('cookies')) element = 'quarta';
   if (command.includes('máscara') || command.includes('mascara')) element = 'máscara';
+  if (
+    command.includes('mídia') ||
+    command.includes('midia') ||
+    command.includes('mídias') ||
+    command.includes('midias') ||
+    command.includes('silenciar')
+  ) {
+    element = 'mídia';
+  }
   if (command.includes('não')) element = 'Não';
   if (command.includes('pouco')) element = 'Pouco';
   if (command.includes('bastante')) element = 'Bastante';

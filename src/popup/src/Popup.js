@@ -149,6 +149,7 @@ function Popup() {
   const [autoClickOnHoverValue, setAutoClickOnHoverValue] = useState(false);
   const [turnExtensionBiggerValue, setTurnExtensionBiggerValue] = useState(false);
   const [readingMaskValue, setReadingMaskValue] = useState(false);
+  const [mutePauseMediaValue, setMutePauseMediaValue] = useState(false);
 
   const settingsDataToState = (settingsData) => {
     if (settingsData) {
@@ -165,6 +166,7 @@ function Popup() {
         setAutoClickOnHoverValue(settingsData.options.autoClickOnHover);
         setTurnExtensionBiggerValue(settingsData.options.turnExtensionBigger);
         setReadingMaskValue(!!settingsData.options.readingMask);
+        setMutePauseMediaValue(!!settingsData.options.mutePauseMedia);
       }
       setPopupUpdating(false);
     }
@@ -182,7 +184,8 @@ function Popup() {
         colorLegend: colorLegendValue,
         autoClickOnHover: autoClickOnHoverValue,
         turnExtensionBigger: turnExtensionBiggerValue,
-        readingMask: readingMaskValue
+        readingMask: readingMaskValue,
+        mutePauseMedia: mutePauseMediaValue
       }
     };
   };
@@ -237,7 +240,8 @@ function Popup() {
     colorLegendValue,
     autoClickOnHoverValue,
     turnExtensionBiggerValue,
-    readingMaskValue
+    readingMaskValue,
+    mutePauseMediaValue
   ]);
 
   useEffect(() => {
@@ -252,7 +256,8 @@ function Popup() {
     daltonismValue,
     autoClickOnHoverValue,
     turnExtensionBiggerValue,
-    readingMaskValue
+    readingMaskValue,
+    mutePauseMediaValue
   ]);
 
   useEffect(() => {
@@ -495,6 +500,19 @@ function Popup() {
               </OptionsItem>
               <OptionsItem
                 type={constants.optionsItemTypes.CUSTOM2}
+                tooltip="Pausa e silencia vídeos e áudios da página. Ao desmarcar, tenta restaurar o estado anterior de cada mídia">
+                <Checkbox
+                  label={
+                    <p>
+                      <b>Silenciar e pausar</b> mídias da página
+                    </p>
+                  }
+                  checked={mutePauseMediaValue}
+                  onChange={(e) => setMutePauseMediaValue(e.target.checked)}
+                />
+              </OptionsItem>
+              <OptionsItem
+                type={constants.optionsItemTypes.CUSTOM2}
                 tooltip="Apresenta uma caixa ao lado do cursor do mouse, mostrando o valor em rgb das cores do texto">
                 <Checkbox
                   label="Legenda de cores"
@@ -541,6 +559,7 @@ function Popup() {
               setTurnExtensionBiggerValue={setTurnExtensionBiggerValue}
               setAcceptCookiesValue={setAcceptCookiesValue}
               setReadingMaskValue={setReadingMaskValue}
+              setMutePauseMediaValue={setMutePauseMediaValue}
               setUserData={setUserData}
               userData={userData}
               setIsVoiceControlActive={setIsVoiceControlActive}

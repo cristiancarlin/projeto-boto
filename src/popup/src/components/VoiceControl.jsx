@@ -142,6 +142,8 @@ export const VoiceControl = (props) => {
     if (voiceType === 'desmarcar' && voiceElement === 'quarta') props.setAcceptCookiesValue(false);
     if (voiceType === 'marcar' && voiceElement === 'máscara') props.setReadingMaskValue(true);
     if (voiceType === 'desmarcar' && voiceElement === 'máscara') props.setReadingMaskValue(false);
+    if (voiceType === 'marcar' && voiceElement === 'mídia') props.setMutePauseMediaValue(true);
+    if (voiceType === 'desmarcar' && voiceElement === 'mídia') props.setMutePauseMediaValue(false);
     if (voiceType === 'restaurar' && voiceElement === 'configurações')
       props.resetDefaultSettingsProfile();
 
