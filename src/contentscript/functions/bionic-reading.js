@@ -117,7 +117,12 @@ function isBionicElement(el) {
 function shouldSkipElement(el) {
   if (!el || el.nodeType !== 1) return false;
   if (SKIP_TAGS.has(el.tagName)) return true;
-  if (el.id === 'boto-reading-mask' || el.id === 'colorLegend' || el.id === 'boto_styles') {
+  if (
+    el.id === 'boto-reading-mask' ||
+    el.id === 'colorLegend' ||
+    el.id === 'boto_styles' ||
+    el.id === 'boto-navigation-timer'
+  ) {
     return true;
   }
   if (el.getAttribute && el.getAttribute('data-boto')) return true;

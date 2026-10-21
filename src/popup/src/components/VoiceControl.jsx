@@ -146,6 +146,10 @@ export const VoiceControl = (props) => {
     if (voiceType === 'desmarcar' && voiceElement === 'mídia') props.setMutePauseMediaValue(false);
     if (voiceType === 'marcar' && voiceElement === 'bionic') props.setBionicReadingValue(true);
     if (voiceType === 'desmarcar' && voiceElement === 'bionic') props.setBionicReadingValue(false);
+    if (voiceType === 'marcar' && voiceElement === 'temporizador')
+      props.setNavigationTimerValue(true);
+    if (voiceType === 'desmarcar' && voiceElement === 'temporizador')
+      props.setNavigationTimerValue(false);
     if (voiceType === 'restaurar' && voiceElement === 'configurações')
       props.resetDefaultSettingsProfile();
 

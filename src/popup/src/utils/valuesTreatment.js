@@ -65,6 +65,14 @@ export const valuesTreatment = (string) => {
     element = 'mídia';
   }
   if (command.includes('bionic') || command.includes('negrito')) element = 'bionic';
+  if (
+    command.includes('temporizador') ||
+    command.includes('timer') ||
+    command.includes('relógio') ||
+    command.includes('relogio')
+  ) {
+    element = 'temporizador';
+  }
   if (command.includes('não')) element = 'Não';
   if (command.includes('pouco')) element = 'Pouco';
   if (command.includes('bastante')) element = 'Bastante';

@@ -78,7 +78,8 @@ export const defaultSettingsData = {
     turnExtensionBigger: false,
     readingMask: false,
     mutePauseMedia: false,
-    bionicReading: false
+    bionicReading: false,
+    navigationTimer: false
   }
 };
 export const defaultExtensionData = {
@@ -100,7 +101,8 @@ export const disabledSettingsData = {
     turnExtensionBigger: false,
     readingMask: false,
     mutePauseMedia: false,
-    bionicReading: false
+    bionicReading: false,
+    navigationTimer: false
   }
 };
 export const disabledExtensionData = {

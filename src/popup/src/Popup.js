@@ -19,6 +19,7 @@ import OptionsItem from './components/OptionsItem.jsx';
 import UserForm from './components/UserForm';
 import * as constants from './utils/Constants';
 import VoiceControl from './components/VoiceControl';
+import NavigationTimer from './components/NavigationTimer';
 import {
   sendMessageToContent,
   sendMessageToAllContents,
@@ -151,6 +152,7 @@ function Popup() {
   const [readingMaskValue, setReadingMaskValue] = useState(false);
   const [mutePauseMediaValue, setMutePauseMediaValue] = useState(false);
   const [bionicReadingValue, setBionicReadingValue] = useState(false);
+  const [navigationTimerValue, setNavigationTimerValue] = useState(false);
 
   const settingsDataToState = (settingsData) => {
     if (settingsData) {
@@ -169,6 +171,7 @@ function Popup() {
         setReadingMaskValue(!!settingsData.options.readingMask);
         setMutePauseMediaValue(!!settingsData.options.mutePauseMedia);
         setBionicReadingValue(!!settingsData.options.bionicReading);
+        setNavigationTimerValue(!!settingsData.options.navigationTimer);
       }
       setPopupUpdating(false);
     }
@@ -188,7 +191,8 @@ function Popup() {
         turnExtensionBigger: turnExtensionBiggerValue,
         readingMask: readingMaskValue,
         mutePauseMedia: mutePauseMediaValue,
-        bionicReading: bionicReadingValue
+        bionicReading: bionicReadingValue,
+        navigationTimer: navigationTimerValue
       }
     };
   };
@@ -245,7 +249,8 @@ function Popup() {
     turnExtensionBiggerValue,
     readingMaskValue,
     mutePauseMediaValue,
-    bionicReadingValue
+    bionicReadingValue,
+    navigationTimerValue
   ]);
 
   useEffect(() => {
@@ -262,7 +267,8 @@ function Popup() {
     turnExtensionBiggerValue,
     readingMaskValue,
     mutePauseMediaValue,
-    bionicReadingValue
+    bionicReadingValue,
+    navigationTimerValue
   ]);
 
   useEffect(() => {
@@ -331,6 +337,14 @@ function Popup() {
 
           {activeTab === constants.tabs.INTERFACE && extensionEnabledValue && (
             <section className="body body-interface">
+              {navigationTimerValue && (
+                <OptionsItem
+                  label="Tempo de navegação"
+                  type={constants.optionsItemTypes.CUSTOM}
+                  tooltip="Mostra há quanto tempo você está navegando, no formato horas:minutos:segundos">
+                  <NavigationTimer enabled={navigationTimerValue} />
+                </OptionsItem>
+              )}
               <OptionsItem
                 label="Brilho"
                 type={constants.optionsItemTypes.SLIDER}
@@ -505,6 +519,27 @@ function Popup() {
               </OptionsItem>
               <OptionsItem
                 type={constants.optionsItemTypes.CUSTOM2}
+                tooltip="Mostra um relógio hh:mm:ss com o tempo de navegação na aba Interface e também na página">
+                <Checkbox
+                  label={
+                    <p>
+                      Ativar <b>temporizador</b> de navegação
+                    </p>
+                  }
+                  checked={navigationTimerValue}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setNavigationTimerValue(checked);
+                    if (checked) {
+                      chrome.storage.local.set({ navigationTimerStartedAt: Date.now() });
+                    } else {
+                      chrome.storage.local.remove('navigationTimerStartedAt');
+                    }
+                  }}
+                />
+              </OptionsItem>
+              <OptionsItem
+                type={constants.optionsItemTypes.CUSTOM2}
                 tooltip="Coloca em negrito a primeira letra de cada palavra da página, incluindo o texto dentro de links, sem alterar o destino do clique">
                 <Checkbox
                   label={
@@ -579,6 +614,7 @@ function Popup() {
               setReadingMaskValue={setReadingMaskValue}
               setMutePauseMediaValue={setMutePauseMediaValue}
               setBionicReadingValue={setBionicReadingValue}
+              setNavigationTimerValue={setNavigationTimerValue}
               setUserData={setUserData}
               userData={userData}
               setIsVoiceControlActive={setIsVoiceControlActive}
