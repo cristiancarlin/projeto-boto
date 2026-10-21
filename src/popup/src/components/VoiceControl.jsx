@@ -144,6 +144,8 @@ export const VoiceControl = (props) => {
     if (voiceType === 'desmarcar' && voiceElement === 'máscara') props.setReadingMaskValue(false);
     if (voiceType === 'marcar' && voiceElement === 'mídia') props.setMutePauseMediaValue(true);
     if (voiceType === 'desmarcar' && voiceElement === 'mídia') props.setMutePauseMediaValue(false);
+    if (voiceType === 'marcar' && voiceElement === 'bionic') props.setBionicReadingValue(true);
+    if (voiceType === 'desmarcar' && voiceElement === 'bionic') props.setBionicReadingValue(false);
     if (voiceType === 'restaurar' && voiceElement === 'configurações')
       props.resetDefaultSettingsProfile();
 

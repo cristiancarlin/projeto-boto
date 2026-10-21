@@ -150,6 +150,7 @@ function Popup() {
   const [turnExtensionBiggerValue, setTurnExtensionBiggerValue] = useState(false);
   const [readingMaskValue, setReadingMaskValue] = useState(false);
   const [mutePauseMediaValue, setMutePauseMediaValue] = useState(false);
+  const [bionicReadingValue, setBionicReadingValue] = useState(false);
 
   const settingsDataToState = (settingsData) => {
     if (settingsData) {
@@ -167,6 +168,7 @@ function Popup() {
         setTurnExtensionBiggerValue(settingsData.options.turnExtensionBigger);
         setReadingMaskValue(!!settingsData.options.readingMask);
         setMutePauseMediaValue(!!settingsData.options.mutePauseMedia);
+        setBionicReadingValue(!!settingsData.options.bionicReading);
       }
       setPopupUpdating(false);
     }
@@ -185,7 +187,8 @@ function Popup() {
         autoClickOnHover: autoClickOnHoverValue,
         turnExtensionBigger: turnExtensionBiggerValue,
         readingMask: readingMaskValue,
-        mutePauseMedia: mutePauseMediaValue
+        mutePauseMedia: mutePauseMediaValue,
+        bionicReading: bionicReadingValue
       }
     };
   };
@@ -241,7 +244,8 @@ function Popup() {
     autoClickOnHoverValue,
     turnExtensionBiggerValue,
     readingMaskValue,
-    mutePauseMediaValue
+    mutePauseMediaValue,
+    bionicReadingValue
   ]);
 
   useEffect(() => {
@@ -257,7 +261,8 @@ function Popup() {
     autoClickOnHoverValue,
     turnExtensionBiggerValue,
     readingMaskValue,
-    mutePauseMediaValue
+    mutePauseMediaValue,
+    bionicReadingValue
   ]);
 
   useEffect(() => {
@@ -500,6 +505,19 @@ function Popup() {
               </OptionsItem>
               <OptionsItem
                 type={constants.optionsItemTypes.CUSTOM2}
+                tooltip="Coloca em negrito a primeira letra de cada palavra da página, incluindo o texto dentro de links, sem alterar o destino do clique">
+                <Checkbox
+                  label={
+                    <p>
+                      Ativar <b>Bionic Reading</b> (primeira letra em negrito)
+                    </p>
+                  }
+                  checked={bionicReadingValue}
+                  onChange={(e) => setBionicReadingValue(e.target.checked)}
+                />
+              </OptionsItem>
+              <OptionsItem
+                type={constants.optionsItemTypes.CUSTOM2}
                 tooltip="Pausa e silencia vídeos e áudios da página. Ao desmarcar, tenta restaurar o estado anterior de cada mídia">
                 <Checkbox
                   label={
@@ -560,6 +578,7 @@ function Popup() {
               setAcceptCookiesValue={setAcceptCookiesValue}
               setReadingMaskValue={setReadingMaskValue}
               setMutePauseMediaValue={setMutePauseMediaValue}
+              setBionicReadingValue={setBionicReadingValue}
               setUserData={setUserData}
               userData={userData}
               setIsVoiceControlActive={setIsVoiceControlActive}

@@ -1,6 +1,7 @@
 import RemoveCookieBanners from './functions/cookiebanner-go-away';
 import { enableReadingMask, disableReadingMask } from './functions/reading-mask';
 import { enableMutePauseMedia, disableMutePauseMedia } from './functions/mute-pause-media';
+import { enableBionicReading, disableBionicReading } from './functions/bionic-reading';
 import * as constants from '../shared/constants';
 import { sendMessageToBackground } from './utils/messageManager';
 import {
@@ -194,6 +195,12 @@ function settingsDataUpdate(newSettingsData) {
     enableMutePauseMedia();
   } else if (!newSettingsData.options.mutePauseMedia && prevSettingsData.options.mutePauseMedia) {
     disableMutePauseMedia();
+  }
+
+  if (newSettingsData.options.bionicReading && !prevSettingsData.options.bionicReading) {
+    enableBionicReading();
+  } else if (!newSettingsData.options.bionicReading && prevSettingsData.options.bionicReading) {
+    disableBionicReading();
   }
 
   prevSettingsData = newSettingsData;

@@ -77,7 +77,8 @@ export const defaultSettingsData = {
     autoClickOnHover: false,
     turnExtensionBigger: false,
     readingMask: false,
-    mutePauseMedia: false
+    mutePauseMedia: false,
+    bionicReading: false
   }
 };
 export const defaultExtensionData = {
@@ -98,7 +99,8 @@ export const disabledSettingsData = {
     autoClickOnHover: false,
     turnExtensionBigger: false,
     readingMask: false,
-    mutePauseMedia: false
+    mutePauseMedia: false,
+    bionicReading: false
   }
 };
 export const disabledExtensionData = {
