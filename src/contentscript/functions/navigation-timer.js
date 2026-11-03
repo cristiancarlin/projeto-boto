@@ -6,7 +6,6 @@
  * 2) Só no frame principal (iframes de anúncio não devem ter outro relógio).
  * 3) Início gravado no chrome.storage — recarregar a aba não zera o tempo.
  * 4) pointer-events: none — o relógio não come cliques.
- * 5) aria-live desligado — anunciar cada segundo no leitor de tela atrapalha.
  */
 
 const TIMER_ID = 'boto-navigation-timer';

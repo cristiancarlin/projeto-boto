@@ -214,10 +214,8 @@ function settingsDataUpdate(newSettingsData) {
 }
 // Update DOM based on extensionData argument
 function extensionDataUpdate(newExtensionData) {
-  // Operações pesadas só na página principal.
-  // Em sites como o G1, dezenas de iframes de anúncio carregam o content script
-  // (all_frames). Rodar domContrastFix em cada um travava/piscava a tela até o
-  // modal de "bloqueador" aparecer e parar novos iframes.
+  // Operações pesadas só na página principal. Em all_frames, rodar
+  // domContrastFix em cada iframe travava/piscava a tela.
   if (isTopFrame()) {
     if (
       newExtensionData.autoFixElements &&

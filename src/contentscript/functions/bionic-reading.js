@@ -2,14 +2,13 @@
  * Bionic Reading: primeira letra de cada palavra em negrito.
  *
  * Ajustes extra (textos que “não mudavam”):
- * 7) Sites como o G1 injetam o feed depois — mutações durante o apply
- *    eram descartadas. Agora enfileira e reaplica.
- * 8) Reaplica após load e em atrasos curtos (hidratação SPA).
- * 9) Percorre Shadow DOM aberto.
- * 10) font-variation-settings — fonte variável ignora só font-weight.
- * 11) No G1, `p span { font-weight: ... !important }` ganhava da nossa
- *     classe. Estilo inline + seletor mais específico.
- * 12) Não pular contenteditable — o corpo da matéria ficava de fora.
+ * 7–12) feed atrasado, SPA, Shadow DOM, fonte variável, CSS !important,
+ *     contenteditable.
+ * 13) Reapply agressivo (intervalo/scroll) + reagir a remoção dos spans
+ *     gerava loop com React: a página “ficava carregando” como F5.
+ *     Agora: cooldown entre applies, não reaplica só porque o site
+ *     removeu nossos spans, retries curtos no início e observer
+ *     desligado só durante o apply.
  */
 
 const WORD_CLASS = 'boto-bionic-word';
@@ -34,15 +33,22 @@ const SKIP_TAGS = new Set([
   'MATH',
   'IFRAME',
   'VIDEO',
-  'AUDIO'
+  'AUDIO',
+  'TEMPLATE'
 ]);
-const RETRY_MS = [200, 800, 2000, 4000];
+// Só no carregamento inicial — evita brigar com o site para sempre
+const RETRY_MS = [300, 1200, 3000, 7000];
+const MIN_APPLY_GAP_MS = 1800;
+const MUTATION_DEBOUNCE_MS = 500;
 
 let featureEnabled = false;
 let observer = null;
 let debounceId = 0;
 let applying = false;
+let pendingReapply = false;
 let retryTimers = [];
+let lastApplyAt = 0;
+let mutationsPausedUntil = 0;
 
 const RESET = `
   margin: 0 !important;
@@ -230,21 +236,39 @@ function visitRoot(root) {
   });
 }
 
+function scheduleApply() {
+  if (!featureEnabled) return;
+  clearTimeout(debounceId);
+
+  const elapsed = Date.now() - lastApplyAt;
+  const wait = Math.max(MUTATION_DEBOUNCE_MS, MIN_APPLY_GAP_MS - elapsed);
+  debounceId = setTimeout(applyBionicEverywhere, wait);
+}
+
 function applyBionicEverywhere() {
   if (!featureEnabled) return;
   if (applying) {
-    scheduleApply();
+    pendingReapply = true;
     return;
   }
 
   applying = true;
+  pendingReapply = false;
   if (observer) observer.disconnect();
+
   try {
     injectStyleInto(document);
     visitRoot(document);
   } finally {
+    lastApplyAt = Date.now();
+    // Ignora a onda de mutações do próprio apply / hidratação imediata
+    mutationsPausedUntil = lastApplyAt + 800;
     applying = false;
     if (featureEnabled) startObserver();
+    if (featureEnabled && pendingReapply) {
+      pendingReapply = false;
+      scheduleApply();
+    }
   }
 }
 
@@ -276,28 +300,41 @@ function restoreBionic() {
     restoreRoot(document);
   } finally {
     applying = false;
+    pendingReapply = false;
   }
 }
 
-function scheduleApply() {
-  clearTimeout(debounceId);
-  debounceId = setTimeout(applyBionicEverywhere, 120);
+function addedNodeNeedsBionic(node) {
+  if (!node) return false;
+  if (node.nodeType === 3) {
+    return !!(node.nodeValue && node.nodeValue.trim()) && !isInsideSkip(node);
+  }
+  if (node.nodeType !== 1) return false;
+  if (isBionicElement(node) || shouldSkipElement(node)) return false;
+  // Só reagimos a conteúdo novo de verdade, não a qualquer nó do site
+  if (node.matches && node.matches('script, style, link, meta, noscript, svg, path, img, source')) {
+    return false;
+  }
+  return true;
 }
 
 function onMutations(mutations) {
-  if (!featureEnabled) return;
+  if (!featureEnabled || applying) return;
+  if (Date.now() < mutationsPausedUntil) return;
 
   for (const mutation of mutations) {
     if (mutation.type === 'characterData') {
-      scheduleApply();
-      return;
-    }
-    for (const node of mutation.addedNodes) {
-      if (node.nodeType === 3) {
+      if (!isInsideSkip(mutation.target)) {
         scheduleApply();
         return;
       }
-      if (node.nodeType === 1 && !isBionicElement(node)) {
+      continue;
+    }
+
+    // Não reagimos a remoção dos nossos spans: o site (React) costuma
+    // desfazer o DOM; reaplicar na hora gera loop tipo F5.
+    for (const node of mutation.addedNodes) {
+      if (addedNodeNeedsBionic(node)) {
         scheduleApply();
         return;
       }
