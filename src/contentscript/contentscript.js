@@ -2,7 +2,11 @@ import RemoveCookieBanners from './functions/cookiebanner-go-away';
 import { enableReadingMask, disableReadingMask } from './functions/reading-mask';
 import { enableMutePauseMedia, disableMutePauseMedia } from './functions/mute-pause-media';
 import { enableBionicReading, disableBionicReading } from './functions/bionic-reading';
-import { enableNavigationTimer, disableNavigationTimer } from './functions/navigation-timer';
+import {
+  enableNavigationTimer,
+  disableNavigationTimer,
+  setNavigationTimerAutoHide
+} from './functions/navigation-timer';
 import * as constants from '../shared/constants';
 import { sendMessageToBackground } from './utils/messageManager';
 import {
@@ -208,6 +212,10 @@ function settingsDataUpdate(newSettingsData) {
     enableNavigationTimer();
   } else if (!newSettingsData.options.navigationTimer && prevSettingsData.options.navigationTimer) {
     disableNavigationTimer();
+  }
+
+  if (newSettingsData.options.navigationTimer) {
+    setNavigationTimerAutoHide(!!newSettingsData.options.navigationTimerAutoHide);
   }
 
   prevSettingsData = newSettingsData;

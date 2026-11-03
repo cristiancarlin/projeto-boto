@@ -61,7 +61,7 @@ const NavigationTimer = ({ enabled }) => {
     <div
       className={`navigation-timer${enabled ? '' : ' is-off'}`}
       role="timer"
-      aria-label="Tempo de navegação"
+      aria-label="Cronômetro de navegação"
       aria-live="off">
       {label}
     </div>

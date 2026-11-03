@@ -153,6 +153,7 @@ function Popup() {
   const [mutePauseMediaValue, setMutePauseMediaValue] = useState(false);
   const [bionicReadingValue, setBionicReadingValue] = useState(false);
   const [navigationTimerValue, setNavigationTimerValue] = useState(false);
+  const [navigationTimerAutoHideValue, setNavigationTimerAutoHideValue] = useState(false);
 
   const settingsDataToState = (settingsData) => {
     if (settingsData) {
@@ -172,6 +173,7 @@ function Popup() {
         setMutePauseMediaValue(!!settingsData.options.mutePauseMedia);
         setBionicReadingValue(!!settingsData.options.bionicReading);
         setNavigationTimerValue(!!settingsData.options.navigationTimer);
+        setNavigationTimerAutoHideValue(!!settingsData.options.navigationTimerAutoHide);
       }
       setPopupUpdating(false);
     }
@@ -192,7 +194,8 @@ function Popup() {
         readingMask: readingMaskValue,
         mutePauseMedia: mutePauseMediaValue,
         bionicReading: bionicReadingValue,
-        navigationTimer: navigationTimerValue
+        navigationTimer: navigationTimerValue,
+        navigationTimerAutoHide: navigationTimerValue && navigationTimerAutoHideValue
       }
     };
   };
@@ -250,7 +253,8 @@ function Popup() {
     readingMaskValue,
     mutePauseMediaValue,
     bionicReadingValue,
-    navigationTimerValue
+    navigationTimerValue,
+    navigationTimerAutoHideValue
   ]);
 
   useEffect(() => {
@@ -268,7 +272,8 @@ function Popup() {
     readingMaskValue,
     mutePauseMediaValue,
     bionicReadingValue,
-    navigationTimerValue
+    navigationTimerValue,
+    navigationTimerAutoHideValue
   ]);
 
   useEffect(() => {
@@ -339,7 +344,7 @@ function Popup() {
             <section className="body body-interface">
               {navigationTimerValue && (
                 <OptionsItem
-                  label="Tempo de navegação"
+                  label="Cronômetro de navegação"
                   type={constants.optionsItemTypes.CUSTOM}
                   tooltip="Mostra há quanto tempo você está navegando, no formato horas:minutos:segundos">
                   <NavigationTimer enabled={navigationTimerValue} />
@@ -523,7 +528,7 @@ function Popup() {
                 <Checkbox
                   label={
                     <p>
-                      Ativar <b>temporizador</b> de navegação
+                      Ativar <b>cronômetro</b> de navegação
                     </p>
                   }
                   checked={navigationTimerValue}
@@ -533,11 +538,27 @@ function Popup() {
                     if (checked) {
                       chrome.storage.local.set({ navigationTimerStartedAt: Date.now() });
                     } else {
+                      setNavigationTimerAutoHideValue(false);
                       chrome.storage.local.remove('navigationTimerStartedAt');
                     }
                   }}
                 />
               </OptionsItem>
+              {navigationTimerValue && (
+                <OptionsItem
+                  type={constants.optionsItemTypes.CUSTOM2}
+                  tooltip="O cronômetro na página vira um círculo e só mostra o tempo quando você passa o mouse por cima">
+                  <Checkbox
+                    label={
+                      <p>
+                        Ocultar automaticamente o cronômetro na página (aparece ao passar o mouse)
+                      </p>
+                    }
+                    checked={navigationTimerAutoHideValue}
+                    onChange={(e) => setNavigationTimerAutoHideValue(e.target.checked)}
+                  />
+                </OptionsItem>
+              )}
               <OptionsItem
                 type={constants.optionsItemTypes.CUSTOM2}
                 tooltip="Coloca em negrito a primeira letra de cada palavra da página, incluindo o texto dentro de links, sem alterar o destino do clique">

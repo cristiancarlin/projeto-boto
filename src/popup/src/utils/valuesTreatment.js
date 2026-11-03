@@ -66,12 +66,14 @@ export const valuesTreatment = (string) => {
   }
   if (command.includes('bionic') || command.includes('negrito')) element = 'bionic';
   if (
+    command.includes('cronômetro') ||
+    command.includes('cronometro') ||
     command.includes('temporizador') ||
     command.includes('timer') ||
     command.includes('relógio') ||
     command.includes('relogio')
   ) {
-    element = 'temporizador';
+    element = 'cronometro';
   }
   if (command.includes('não')) element = 'Não';
   if (command.includes('pouco')) element = 'Pouco';

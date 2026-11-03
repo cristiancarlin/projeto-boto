@@ -15,3 +15,6 @@ Um adaptador de interfaces web, melhorando a usabilidade de páginas à partir d
 
 Para mais informações sobre a estrutura de uma extensão, visite a página da Google Developers, que fala sobre extensões (https://developer.chrome.com/docs/extensions/).
 Site do Bold: https://bold.bridge.ufsc.br/pt/
+
+### Documentação de funcionalidades
+- [Cronômetro — ocultação automática](docs/cronometro-ocultacao-automatica.md)
