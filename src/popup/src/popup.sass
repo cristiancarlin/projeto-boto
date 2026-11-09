@@ -105,9 +105,16 @@ main
                             &:focus                        
                                 outline: none
                                 box-shadow: 0 0 0 2px #F0F0F5, 0 0 0 4px #C8206F
+                    // Sem position:absolute — com o cronômetro a Interface rola e
+                    // "padrão"/"-2%" precisam acompanhar o slider no fluxo.
                     &-description
-                        position: absolute
-                        margin-top: -18px
+                        display: block
+                        width: 100%
+                        text-align: center
+                        line-height: 1.2
+                        font-size: 0.85rem
+                        margin: 0 0 2px
+                        min-height: 1.1em
                     &-custom
                         width: 100%
                         display: flex

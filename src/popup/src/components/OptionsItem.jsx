@@ -39,6 +39,7 @@ const OptionsItem = ({
       <div className="options_item_value">
         {type === optionsItemTypes.SLIDER && (
           <>
+            <span className="options_item_value-description">{displayValue}</span>
             <div className="options_item_value-slider">
               <Tooltip
                 placement="top"
@@ -68,7 +69,6 @@ const OptionsItem = ({
                 </Button>
               </Tooltip>
             </div>
-            <span className="options_item_value-description">{displayValue}</span>
           </>
         )}
 
