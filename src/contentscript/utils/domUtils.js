@@ -539,8 +539,4 @@ export function processDaltonismType(type) {
 
       break;
   }
-
-  if (performance.navigation.type === performance.navigation.TYPE_NAVIGATE) {
-    localStorage.removeItem('alreadyReloaded');
-  }
 }

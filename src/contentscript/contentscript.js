@@ -137,8 +137,13 @@ function settingsDataUpdate(newSettingsData) {
     }
   }
 
-  if (prevSettingsData.options.daltonism !== newSettingsData.options.daltonism) {
-    const type = newSettingsData.options.daltonism;
+  // 'Não' (constante) e 0 (mapper do perfil) significam a mesma coisa.
+  // Sem isso, cada abertura de página parecia “mudança” e o case 0 dava reload.
+  const prevDaltonism = prevSettingsData.options.daltonism;
+  const nextDaltonism = newSettingsData.options.daltonism;
+  const daltonismOff = (v) => v === 0 || v === 'Não' || v === 'Nao' || v == null;
+  if (prevDaltonism !== nextDaltonism && !(daltonismOff(prevDaltonism) && daltonismOff(nextDaltonism))) {
+    const type = nextDaltonism;
     document.addEventListener('change', processDaltonismType(type));
   }
 
