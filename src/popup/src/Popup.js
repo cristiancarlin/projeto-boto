@@ -72,13 +72,39 @@ function Popup() {
 
   const resetDefaultSettingsBasedOnUserProfile = () => {
     setPopupUpdating(true);
-    updateUserDataMessage();
-    setAutoFixElementsValue(true);
-    setAcceptCookiesValue(false);
-    resetHiddenElements();
-    setPopupUpdating(false);
-    setDaltonismValue();
-    setColorLegendValue();
+
+    // Desliga extras na hora na UI (não depende só do background)
+    setReadingMaskValue(false);
+    setMutePauseMediaValue(false);
+    setBionicReadingValue(false);
+    setNavigationTimerValue(false);
+    setNavigationTimerAutoHideValue(false);
+    setColorLegendValue(false);
+    chrome.storage.local.remove('navigationTimerStartedAt');
+
+    updateUserDataMessage((newSettingsData) => {
+      const restoredSettings = {
+        ...newSettingsData,
+        options: {
+          ...(newSettingsData?.options || {}),
+          readingMask: false,
+          mutePauseMedia: false,
+          bionicReading: false,
+          navigationTimer: false,
+          navigationTimerAutoHide: false,
+          colorLegend: false
+        }
+      };
+
+      settingsDataToState(restoredSettings);
+      sendMessageToBackground(constants.commSubjects.UPDATE.SETTINGS_DATA, restoredSettings);
+      sendMessageToAllContents(constants.commSubjects.UPDATE.SETTINGS_DATA, restoredSettings);
+
+      setAutoFixElementsValue(true);
+      setAcceptCookiesValue(false);
+      resetHiddenElements();
+      setPopupUpdating(false);
+    });
   };
 
   const disableExtension = (enabled) => {
@@ -121,7 +147,7 @@ function Popup() {
     sendMessageToBackground(constants.commSubjects.UPDATE.EXTENSION_DATA, extensionData);
     sendMessageToAllContents(constants.commSubjects.UPDATE.EXTENSION_DATA, extensionData);
   };
-  const updateUserDataMessage = () => {
+  const updateUserDataMessage = (callback) => {
     sendMessageToBackground(
       constants.commSubjects.UPDATE.USER_DATA,
       userData,
@@ -129,6 +155,7 @@ function Popup() {
         // After sending the new userData, updates to the new settings
         settingsDataToState(newSettingsData);
         sendMessageToAllContents(constants.commSubjects.UPDATE.SETTINGS_DATA, newSettingsData);
+        if (callback) callback(newSettingsData);
       }
     );
   };
@@ -608,7 +635,7 @@ function Popup() {
               {isVoiceControlActive && (
                 <div className="voice-instructions">
                   <scan className="voice-instructions-tip">
-                    <b>Dica:</b> Fale "marcar" ou "desmarcar" + palavra chave indicada em negrito
+                    <b>Dica:</b> Fale "marcar", "ativar" ou "desmarcar" + palavra chave indicada em negrito
                   </scan>
                 </div>
               )}

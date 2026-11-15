@@ -15,6 +15,7 @@ export const valuesTreatment = (string) => {
   if (command.includes('tirar')) type = 'esconder';
   if (command.includes('mostrar')) type = 'mostrar';
   if (command.includes('marcar')) type = 'marcar';
+  if (command.includes('ativar')) type = 'marcar';
   if (command.includes('desmarcar')) type = 'desmarcar';
   if (command.includes('idade')) type = 'idade';
   if (command.includes('deficiência visual')) type = 'deficiência visual';
@@ -54,27 +55,23 @@ export const valuesTreatment = (string) => {
   if (command.includes('tamanho')) element = 'terceira';
   if (command.includes('aumentar tamanho')) element = 'terceira';
   if (command.includes('cookies')) element = 'quarta';
-  if (command.includes('máscara') || command.includes('mascara')) element = 'máscara';
-  if (
-    command.includes('mídia') ||
-    command.includes('midia') ||
-    command.includes('mídias') ||
-    command.includes('midias') ||
-    command.includes('silenciar')
-  ) {
-    element = 'mídia';
-  }
-  if (command.includes('bionic') || command.includes('negrito')) element = 'bionic';
-  if (
-    command.includes('cronômetro') ||
-    command.includes('cronometro') ||
-    command.includes('temporizador') ||
-    command.includes('timer') ||
-    command.includes('relógio') ||
-    command.includes('relogio')
-  ) {
-    element = 'cronometro';
-  }
+  if (command.includes('máscara de leitura')) element = 'máscara';
+  if (command.includes('mascara de leitura')) element = 'máscara';
+  if (command.includes('mídia')) element = 'mídia';
+  if (command.includes('midia')) element = 'mídia';
+  if (command.includes('mídias')) element = 'mídia';
+  if (command.includes('midias')) element = 'mídia';
+  if (command.includes('silenciar')) element = 'mídia';
+  if (command.includes('pausar')) element = 'mídia';
+  if (command.includes('bionic reading')) element = 'bionic';
+  if (command.includes('bionic')) element = 'bionic';
+  if (command.includes('negrito')) element = 'bionic';
+  if (command.includes('cronômetro')) element = 'cronometro';
+  if (command.includes('cronometro')) element = 'cronometro';
+  if (command.includes('temporizador')) element = 'cronometro';
+  if (command.includes('timer')) element = 'cronometro';
+  if (command.includes('relógio')) element = 'cronometro';
+  if (command.includes('relogio')) element = 'cronometro';
   if (command.includes('não')) element = 'Não';
   if (command.includes('pouco')) element = 'Pouco';
   if (command.includes('bastante')) element = 'Bastante';

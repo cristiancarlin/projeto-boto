@@ -10,7 +10,9 @@
         "build": "npm-run-all build:*",
         "build:contentscript-background": "webpack --mode production --config webpack.config.js",
         "watch:popup": "npm run watch:build --prefix src/popup",
-        "build:popup": "npm run build --prefix src/popup && cd src/popup/build && cpy * /static/* ../../../dist/popup --parents"
+        "build:popup": "npm run build --prefix src/popup && cd src/popup/build && cpy * /static/* ../../../dist/popup --parents",
+        "test": "jest",
+        "test:watch": "jest --watch"
     },
     "repository": {
         "type": "git",
@@ -24,11 +26,15 @@
     },
     "homepage": "https://github.com/mateuswolkmer/boto#readme",
     "devDependencies": {
+        "@babel/core": "^8.1.0",
+        "@babel/preset-env": "^8.0.7",
         "@types/chrome": ">=0.0.237",
         "@types/node": ">=20.2.5",
+        "babel-jest": "^30.5.2",
         "cpy-cli": ">=4.2.0",
         "cra-build-watch": ">=3.4.0",
         "css-loader": ">=6.8.1",
+        "jest": "^27.5.1",
         "mini-css-extract-plugin": ">=2.7.6",
         "node-sass": ">=9.0.0",
         "npm-run-all": ">=4.1.5",

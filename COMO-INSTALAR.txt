@@ -1,0 +1,148 @@
+========================================
+  COMO INSTALAR A EXTENSÃO BOTO
+  (Google Chrome ou Microsoft Edge)
+========================================
+
+Você NÃO precisa instalar nenhum programa
+de programação. Basta o navegador.
+
+----------------------------------------
+PASSO 1 — Baixe e abra o arquivo .zip
+----------------------------------------
+
+1. Baixe o arquivo "Boto-extensao.zip".
+2. Clique com o botão direito em cima
+   do arquivo.
+3. Escolha "Extrair tudo..." (ou
+   "Extract All...").
+4. Clique em "Extrair".
+5. Vai aparecer uma pasta chamada "Boto".
+   Guarde essa pasta em um lugar fácil,
+   por exemplo na Área de Trabalho.
+   NÃO apague essa pasta depois — o
+   navegador precisa dela para a
+   extensão continuar funcionando.
+
+----------------------------------------
+PASSO 2 — Abra a página de extensões
+----------------------------------------
+
+No Google Chrome:
+  - Clique na barra de endereço
+    (onde fica o endereço do site).
+  - Apague o que estiver escrito.
+  - Digite exatamente isto:
+      chrome://extensions
+  - Aperte Enter.
+
+No Microsoft Edge:
+  - Faça o mesmo, mas digite:
+      edge://extensions
+  - Aperte Enter.
+
+----------------------------------------
+PASSO 3 — Ative o "Modo do
+desenvolvedor"
+----------------------------------------
+
+1. No canto superior direito da página,
+   procure a chave / botão chamado
+   "Modo do desenvolvedor"
+   (ou "Developer mode").
+2. Clique para LIGAR.
+   A chave deve ficar azul / ativada.
+
+----------------------------------------
+PASSO 4 — Carregue a extensão
+----------------------------------------
+
+1. Vai aparecer um botão chamado
+   "Carregar sem compactação"
+   (ou "Load unpacked").
+2. Clique nesse botão.
+3. Na janela que abrir, vá até a pasta
+   "Boto" que você extraiu no Passo 1.
+4. IMPORTANTE: selecione a pasta "Boto"
+   (a pasta que tem o arquivo
+   "manifest.json" DENTRO dela).
+   Não selecione o arquivo .zip.
+5. Clique em "Selecionar pasta"
+   (ou "Select Folder").
+
+----------------------------------------
+PASSO 5 — Confira se deu certo
+----------------------------------------
+
+1. Na lista de extensões deve aparecer
+   o nome "Boto".
+2. A chave ao lado deve estar ligada.
+3. Clique no ícone de quebra-cabeça
+   (extensões) na barra do navegador,
+   no canto superior direito.
+4. Procure "Boto" e, se quiser, clique
+   no alfinete para deixar o ícone
+   sempre visível.
+5. Clique no ícone do Boto. Deve abrir
+   a janelinha da extensão.
+
+Pronto! A extensão está instalada.
+
+----------------------------------------
+COMO USAR (bem resumido)
+----------------------------------------
+
+1. Clique no ícone do Boto.
+2. Deixe o interruptor "Ligado".
+3. Na aba "Extras", marque as opções
+   que quiser (por exemplo o
+   temporizador ou o Bionic Reading).
+4. Abra qualquer site e veja o efeito.
+5. Se algo não aparecer, aperte F5
+   para atualizar a página.
+
+----------------------------------------
+PROBLEMAS COMUNS
+----------------------------------------
+
+• "Não acho o botão Carregar sem
+  compactação"
+  → O "Modo do desenvolvedor" ainda
+    está desligado. Ligue ele primeiro.
+
+• "A extensão sumiu / parou de
+  funcionar"
+  → A pasta "Boto" foi movida ou
+    apagada. Extraia o zip de novo e
+    carregue a pasta outra vez
+    (Passos 1 a 4).
+
+• "Cliquei e nada mudou no site"
+  → Atualize a página com F5.
+    Em alguns sites (como
+    chrome://...) a extensão não
+    funciona — use um site normal
+    (por exemplo um portal de
+    notícias).
+
+• "Apareceu um aviso de extensão
+  não publicada"
+  → Isso é normal. A Boto ainda não
+    está na Chrome Web Store. Pode
+    usar mesmo assim no seu
+    computador.
+
+----------------------------------------
+OBSERVAÇÕES
+----------------------------------------
+
+• Funciona no Chrome e no Edge
+  (computador Windows, Mac ou Linux).
+• Não funciona no celular da mesma
+  forma (este guia é para o computador).
+• A pasta "Boto" precisa continuar no
+  computador. Não envie só o .zip
+  sem extrair — o navegador usa a
+  pasta já aberta.
+
+Se precisar de ajuda, peça para a
+pessoa que enviou este arquivo.

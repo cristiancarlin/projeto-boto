@@ -2,7 +2,13 @@ import * as constants from '../../shared/constants';
 
 // Map user data to settings that better suit their profile
 export function map(settingsData, userData) {
-  let newSettingsData = Object.assign({}, settingsData);
+  // Clona options para não mutar o objeto em storage e poder zerar extras no restore
+  let newSettingsData = {
+    ...settingsData,
+    options: {
+      ...(settingsData.options || {})
+    }
+  };
 
   // brightness
   newSettingsData.options.brightness = 0;
@@ -82,6 +88,14 @@ export function map(settingsData, userData) {
   )
     newSettingsData.options.autoClickOnHover = true;
   else newSettingsData.options.autoClickOnHover = false;
+
+  // Extras manuais: restaurar perfil sempre desliga (não vêm do questionário)
+  newSettingsData.options.colorLegend = false;
+  newSettingsData.options.readingMask = false;
+  newSettingsData.options.mutePauseMedia = false;
+  newSettingsData.options.bionicReading = false;
+  newSettingsData.options.navigationTimer = false;
+  newSettingsData.options.navigationTimerAutoHide = false;
 
   return newSettingsData;
 }
